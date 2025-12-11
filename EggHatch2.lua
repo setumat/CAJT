@@ -4,7 +4,7 @@ gui.Name = "ElegantAutoGUI"
 
 -- Main Frame (smaller)
 local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 190, 0, 165)
+frame.Size = UDim2.new(0, 190, 0, 210)
 frame.Position = UDim2.new(0.05, 0, 0.3, 0)
 frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 frame.BorderSizePixel = 0
@@ -45,17 +45,7 @@ close.TextColor3 = Color3.new(1,1,1)
 close.BorderSizePixel = 0
 Instance.new("UICorner", close).CornerRadius = UDim.new(0, 8)
 
--- Title
-local title = Instance.new("TextLabel", frame)
-title.Size = UDim2.new(1, -12, 0, 28)
-title.Position = UDim2.new(0, 6, 0, 2)
-title.Text = "Egg Hatch"
-title.TextScaled = true
-title.BackgroundTransparency = 1
-title.TextColor3 = Color3.new(1,1,1)
-title.Font = Enum.Font.GothamBold
-
--- Input 1
+-- Input 1 (ID Egg)
 local box1 = Instance.new("TextBox", frame)
 box1.Size = UDim2.new(0, 160, 0, 30)
 box1.Position = UDim2.new(0, 15, 0, 40)
@@ -68,7 +58,7 @@ box1.BackgroundTransparency = 0.15
 box1.TextColor3 = Color3.new(1,1,1)
 Instance.new("UICorner", box1).CornerRadius = UDim.new(0, 8)
 
--- Input 2
+-- Input 2 (Delay)
 local box2 = Instance.new("TextBox", frame)
 box2.Size = UDim2.new(0, 160, 0, 30)
 box2.Position = UDim2.new(0, 15, 0, 80)
@@ -81,23 +71,23 @@ box2.BackgroundTransparency = 0.15
 box2.TextColor3 = Color3.new(1,1,1)
 Instance.new("UICorner", box2).CornerRadius = UDim.new(0, 8)
 
--- Input 3
+-- Input 3 (Qty)
 local box3 = Instance.new("TextBox", frame)
-box2.Size = UDim2.new(0, 160, 0, 30)
-box2.Position = UDim2.new(0, 15, 0, 120)
-box2.Text = "10"
-box2.PlaceholderText = "Qty"
-box2.TextScaled = true
-box2.Font = Enum.Font.Gotham
-box2.BackgroundColor3 = Color3.fromRGB(255,255,255)
-box2.BackgroundTransparency = 0.15
-box2.TextColor3 = Color3.new(1,1,1)
-Instance.new("UICorner", box2).CornerRadius = UDim.new(0, 8)
+box3.Size = UDim2.new(0, 160, 0, 30)
+box3.Position = UDim2.new(0, 15, 0, 120)
+box3.Text = "10"
+box3.PlaceholderText = "Qty"
+box3.TextScaled = true
+box3.Font = Enum.Font.Gotham
+box3.BackgroundColor3 = Color3.fromRGB(255,255,255)
+box3.BackgroundTransparency = 0.15
+box3.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner", box3).CornerRadius = UDim.new(0, 8)
 
 -- Toggle Button
 local toggle = Instance.new("TextButton", frame)
 toggle.Size = UDim2.new(0, 160, 0, 35)
-toggle.Position = UDim2.new(0, 15, 0, 120)
+toggle.Position = UDim2.new(0, 15, 0, 160)
 toggle.Text = "START"
 toggle.TextScaled = true
 toggle.Font = Enum.Font.GothamBold
@@ -116,7 +106,7 @@ glow.Rotation = 90
 -- Status Label
 local status = Instance.new("TextLabel", frame)
 status.Size = UDim2.new(0, 130, 0, 22)
-status.Position = UDim2.new(0.5, -65, -0.23, 0)
+status.Position = UDim2.new(0.5, -65, 0, 5)
 status.Text = "OFF"
 status.TextScaled = true
 status.BackgroundColor3 = Color3.fromRGB(150, 0, 60)
@@ -128,7 +118,7 @@ Instance.new("UICorner", status).CornerRadius = UDim.new(0, 8)
 local running = false
 local working = false
 
-local function doTask(id)
+local function doTask(id, qty)
     local args = {id, qty}
     game:GetService("ReplicatedStorage")
         :WaitForChild("Tool")
@@ -159,7 +149,8 @@ toggle.MouseButton1Click:Connect(function()
                 local id = tonumber(box1.Text) or 7000076
                 local delay = tonumber(box2.Text) or 0.5
                 local qty = tonumber(box3.Text) or 10
-                doTask(id)
+
+                doTask(id, qty)
                 task.wait(delay)
             end
             working = false
@@ -169,7 +160,7 @@ end)
 
 -- Close GUI (stop loop first)
 close.MouseButton1Click:Connect(function()
-    running = false      -- hentikan loop
-    working = false      -- pastikan tidak ada loop aktif
-    gui:Destroy()        -- baru tutup GUI
+    running = false
+    working = false
+    gui:Destroy()
 end)
