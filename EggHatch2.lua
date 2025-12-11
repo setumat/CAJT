@@ -84,7 +84,7 @@ Instance.new("UICorner", box2).CornerRadius = UDim.new(0, 8)
 -- Input 3
 local box3 = Instance.new("TextBox", frame)
 box2.Size = UDim2.new(0, 160, 0, 30)
-box2.Position = UDim2.new(0, 15, 0, 80)
+box2.Position = UDim2.new(0, 15, 0, 120)
 box2.Text = "10"
 box2.PlaceholderText = "Qty"
 box2.TextScaled = true
