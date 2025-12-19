@@ -41,7 +41,7 @@ local Window = Rayfield:CreateWindow({
 -- EGG HATCH SYSTEM VARIABLES
 -- ===========================
 
-local eggID = 7000076      -- default id (sesuai world default)
+local eggID = 7000083      -- default id (sesuai world default)
 local eggQty = 10          -- default qty
 local eggDelay = 0.15      -- default delay
 local autoHatch = false    -- status toggle
@@ -50,7 +50,10 @@ local autoHatch = false    -- status toggle
 local worldToID = {
    ["World 21 Egg 1"] = 7000074,
    ["World 21 Egg 2"] = 7000075,
-   ["World 21 Egg 3"] = 7000076
+   ["World 21 Egg 3"] = 7000076,
+   ["World 22 Egg 1"] = 7000081,
+   ["World 22 Egg 2"] = 7000082,
+   ["World 22 Egg 3"] = 7000083
 }
 
 -- ===========================
@@ -64,8 +67,15 @@ local Section = Tab:CreateSection("Please Select Egg")
 -- world dropdown
 local Dropdown = Tab:CreateDropdown({
    Name = "World",
-   Options = {"World 21 Egg 1","World 21 Egg 2","World 21 Egg 3"},
-   CurrentOption = {"World 21 Egg 3"},
+   Options = {
+      "World 21 Egg 1",
+      "World 21 Egg 2",
+      "World 21 Egg 3",
+      "World 22 Egg 1",
+      "World 22 Egg 2",
+      "World 22 Egg 3"
+   },
+   CurrentOption = {"World 22 Egg 3"},
    MultipleOptions = false,
    Flag = "EggDropdown",
    Callback = function(Options)
@@ -173,5 +183,94 @@ local Button = Tab:CreateButton({
    Name = "Wing Shop",
    Callback = function()
    -- The function that takes place when the button is pressed
+   end,
+})
+
+local Tab = Window:CreateTab("Teleport", "arrow-big-right-dash") -- Title, Image
+
+local Section = Tab:CreateSection("Select World")
+
+-- ===========================
+-- TELEPORT VARIABLE
+-- ===========================
+
+local teleportID = 1      -- default id (sesuai world default)
+
+-- map pilihan teleport -> id
+local teleportToID = {
+   ["World 1"] = 1,
+   ["World 2"] = 2,
+   ["World 3"] = 3,
+   ["World 4"] = 4,
+   ["World 5"] = 5,
+   ["World 6"] = 6,
+   ["World 7"] = 7,
+   ["World 8"] = 8,
+   ["World 9"] = 9,
+   ["World 10"] = 10,
+   ["World 11"] = 11,
+   ["World 12"] = 12,
+   ["World 13"] = 13,
+   ["World 14"] = 14,
+   ["World 15"] = 15,
+   ["World 16"] = 16,
+   ["World 17"] = 17,
+   ["World 18"] = 18,
+   ["World 19"] = 19,
+   ["World 20"] = 20,
+   ["World 21"] = 21,
+   ["World 22"] = 22
+}
+
+-- ===========================
+-- TELEPORT UI
+-- ===========================
+
+-- teleport dropdown
+local Dropdown = Tab:CreateDropdown({
+   Name = "World Teleport",
+   Options = {
+      "World 1",
+      "World 2",
+      "World 3",
+      "World 4",
+      "World 5",
+      "World 6",
+      "World 7",
+      "World 8",
+      "World 9",
+      "World 10",
+      "World 11",
+      "World 12",
+      "World 13",
+      "World 14,
+      "World 15",
+      "World 16",
+      "World 17",
+      "World 18",
+      "World 19",
+      "World 20",
+      "World 21",
+      "World 22"
+   },
+   CurrentOption = {"World 1"},
+   MultipleOptions = false,
+   Flag = "WorldTeleportDropdown",
+   Callback = function(option)
+       teleportID = teleportToID[option[1]] -- update ID sesuai pilihan
+       print("Selected World ID : ", teleportID)
+   end,
+})
+
+-- teleport button
+local Button = Tab:CreateButton({
+   Name = "Teleport",
+   Callback = function()
+       local args = {
+           "TeleportToTargetWorld",
+           teleportID
+       }
+       game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+       print("Teleporting to World ID  :", teleportID)
    end,
 })
