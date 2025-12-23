@@ -1,4 +1,4 @@
--- Version 2
+-- Version 3
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -273,5 +273,49 @@ local Button = Tab:CreateButton({
            teleportID
        }
        game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+   end,
+})
+
+-- ===========================
+-- MISC UI
+-- ===========================
+
+local Tab = Window:CreateTab("Misc", "bolt") -- Title, Image
+
+local Section = Tab:CreateSection("Please Select Misc Option")
+
+local collecting = false
+
+local Toggle = Tab:CreateToggle({
+   Name = "Collect Online Rewards",
+   CurrentValue = false,
+   Flag = "OnlineRewards",
+   Callback = function(Value)
+      collecting = Value
+
+      if collecting then
+         task.spawn(function()
+            local index = 1
+
+            while collecting do
+               local args = {
+                  "GetOnlineAward",
+                  index
+               }
+
+               game:GetService("ReplicatedStorage")
+                  :WaitForChild("Msg")
+                  :WaitForChild("RemoteEvent")
+                  :FireServer(unpack(args))
+
+               index += 1
+               if index > 12 then
+                  index = 1
+               end
+
+               task.wait(0.5) -- ⏱️ atur delay (jangan 0)
+            end
+         end)
+      end
    end,
 })
