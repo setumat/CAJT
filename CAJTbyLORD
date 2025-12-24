@@ -1,4 +1,4 @@
--- Version 3
+-- Version 3.1
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
@@ -271,6 +271,56 @@ local Button = Tab:CreateButton({
        local args = {
            "TeleportToTargetWorld",
            teleportID
+       }
+       game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+   end,
+})
+
+local Divider = Tab:CreateDivider()
+
+-- Pet Enchant Teleport
+local Button = Tab:CreateButton({
+   Name = "Pet Enchant Teleport",
+   Callback = function()
+       local args = {
+           "TeleportToTargetWorld",
+           2
+       }
+       game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+   end,
+})
+
+-- Titan Teleport
+local Button = Tab:CreateButton({
+   Name = "Titan Teleport",
+   Callback = function()
+       local args = {
+           "TeleportToTargetWorld",
+           3
+       }
+       game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+   end,
+})
+
+-- Wing Enchant Teleport
+local Button = Tab:CreateButton({
+   Name = "Wing Enchant Teleport",
+   Callback = function()
+       local args = {
+           "TeleportToTargetWorld",
+           11
+       }
+       game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
+   end,
+})
+
+-- Last World Teleport
+local Button = Tab:CreateButton({
+   Name = "Last World Teleport",
+   Callback = function()
+       local args = {
+           "TeleportToTargetWorld",
+           22
        }
        game:GetService("ReplicatedStorage"):WaitForChild("Msg"):WaitForChild("RemoteEvent"):FireServer(unpack(args))
    end,
